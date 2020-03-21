@@ -1,0 +1,115 @@
+*{
+    box-sizing: border-box;
+}
+.container{
+    width: 1140px;
+
+}  
+#span2{
+    display: none; 
+}
+#hadeline:hover #span1{
+    display: none;   
+}
+#hadeline:hover #span2{
+    display: inline;
+}
+
+.game{
+    width: 1140px;
+    display: flex;
+}
+.rite{
+    float: right;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    margin: 30px;
+    background-color: rgb(226, 226, 245);
+    padding: 20px;
+    color: black;
+}
+.high1, .high2 ,.high3, .high4 ,.high5 ,.high6{
+    height: 80px;
+    width: 120px;
+    margin: 2px;
+    width: 200px;
+    background-color: rgb(241, 241, 248);
+}
+#hadeline{
+    width: 100%;
+    height: 50px;
+    margin-top: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 700;
+    color: rgb(160, 100, 216);
+    background-color: rgb(246, 252, 173);
+    border: 3px black solid;
+}
+.blackandspinr{
+    width: 800px;
+    height: 620px;
+    margin-top: 30px;
+    position: relative;
+}
+#black{
+    width: 800px;
+    height: 620px;
+    background-color: black;
+    position: relative;
+}
+.spiner{
+    text-align: center;
+    background-color: rgb(154, 182, 235);
+    border: solid rgb(240, 255, 37) 1px;
+    width: 100px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    animation-name: spiner;
+    animation-duration: 0;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spiner{
+    from{-webkit-transform: rotate(0deg);}
+    to{-webkit-transform: rotate(360deg);}
+}
+.claer{
+    clear: both;
+}
+p{
+    font-weight: 700;
+    padding:0px;
+    position: relative;
+}
+.high6 p{
+    padding:0px ;
+    margin: 0px;
+    font-weight: lighter;
+    
+}
+.high6{
+    height: 155px;
+}
+.scoorlist{
+    position: relative;
+}
+.mis{
+    display: none;
+    position: absolute;
+}
+.scoorlist:hover .mis {
+    font-weight: 500;
+    right: 80px;
+    top: -25px;
+    padding: 0px 20px;
+    display: inline;
+    position: absolute;
+    text-align: center;
+    border: solid 1px black;
+    background-color: rgb(152, 243, 187);
+}
