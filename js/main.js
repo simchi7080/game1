@@ -2,7 +2,6 @@ var pscoore = document.getElementsByClassName("winers")[0];
 var tottelscoores = "";
 var haed = document.getElementById("hadeline");
 var time = document.getElementById("time");
-
 var timeval = 60;
 var bagin = null;
 var yourname = [];
@@ -16,7 +15,6 @@ if (highscoresJSON != null) {
 createHTML();
 // ------------------------------------------------
 // הפעלת המשחק
-
 function ternon() {
     funcs.start();
 }
@@ -27,7 +25,7 @@ const funcs = {
     start: function () {
         confirm("are you redy to start?");
         bagin = setInterval(() => {
-            // spiner.addEventListener("mouseover", position);
+            spiner.addEventListener("mouseover", position);
             timeval--;
             time.innerHTML = timeval;
             spiner.style.animationDuration = dur + "s";
@@ -36,18 +34,18 @@ const funcs = {
             if (timeval == 0) {
                 this.stop(bagin);
             }
-        }, 100)
+        }, 1000)
     },
     stop: function (x) {
         clearInterval(x);
         this.finishgame();
     },
     finishgame: function () {
-        spiner.style.animation = "stop";
+        spiner.style = "stop";
         addscoore();
     }
 };
-
+//בדיקה והוספה של השחקן ללוח הניצחונות 
 function addscoore() {
     setTimeout(() => {
         if(highscores.length<5){
@@ -75,11 +73,15 @@ function addscoore() {
             highscores.pop()
         }
         addstoraga()
-
+// לבדוק האם הציון שלו גבוה מה5
         function checkwiner() {
             highscores.sort((a, b) => {
                 return b.score - a.score;
             })
+ // לאפס את המשחק
+            spiner.removeEventListener("click", clickin);
+            black.removeEventListener("click", clickout);
+            spiner.removeEventListener("mouseover", position);
             scoreval = 0;
             nextleveleval = 10;
             leveleval = 1;
@@ -89,14 +91,14 @@ function addscoore() {
             yourname=[];
         }
     }, 100);
-
+// להכניס לגייסון
     function addstoraga() {
         var highscoresJSON = JSON.stringify(highscores);
         localStorage.setItem("allscores", highscoresJSON);
         createHTML();
     }
 };
-
+// להכניס לדף HTML
 function createHTML() {
     tottelscoores = "";
     highscores.forEach(createscoore);
@@ -104,7 +106,7 @@ function createHTML() {
 }
 
 function createscoore(scoore, i) {
-    tottelscoores += `<p class"scoorlist">${(i+1)}-${scoore.player}-${scoore.score}<span class="mis">${scoore.date}</span></p>`
+    tottelscoores += `<p class"scoorlist">${(i+1)}. ${scoore.player} - ${scoore.score}<span class="mis">${scoore.date}</span></p>`
 }
 // ----------------------------------------------------------------------------------------
 // הדיב הזז

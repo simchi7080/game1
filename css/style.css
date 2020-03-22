@@ -3,7 +3,6 @@
 }
 .container{
     width: 1140px;
-
 }  
 #span2{
     display: none; 
@@ -102,7 +101,7 @@ p{
     display: none;
     position: absolute;
 }
-.scoorlist:hover .mis {
+.high6 p:hover .mis {
     font-weight: 500;
     right: 80px;
     top: -25px;
