@@ -22,6 +22,7 @@ function ternon() {
 }
 var spiner = document.getElementById("spiner");
 var dur = 2;
+var run = 300;
 const funcs = {
     start: function () {
         confirm("are you redy to start?");
@@ -42,38 +43,57 @@ const funcs = {
         this.finishgame();
     },
     finishgame: function () {
-        spiner.style.animation= "stop";
+        spiner.style.animation = "stop";
         addscoore();
-        alert(yourname + " your score is " + score.val)
-
     }
 };
 
 function addscoore() {
-    yourname = prompt("Write your name here :");
-    var scoores =score.val;
-    var thedate = new Date;
-    var newscoore = {
-        player: yourname,
-        score: scoores,
-        date: thedate.toLocaleDateString(),
-    }
-    highscores.push(newscoore)
-    checkwiner()
-    if (highscores.length > 5) {
-        highscores.pop()
-    }
-    addstoraga()
+    setTimeout(() => {
+        if(highscores.length<5){
+            yourname = prompt("Write your name here :")
+        }else if (scoreval> highscores[highscores.length - 1].score) {
+            yourname = prompt("Write your name here :")
+        }
+            alert(yourname + " your score is " + scoreval)
+            score.innerHTML = "0";
+            nextlevele.innerHTML = "10";
+            levele.innerHTML = "1";         
+            missedclicks.innerHTML = "0";  
 
-    function checkwiner() {
-        highscores.sort((a, b) => {
-            return b.score - a.score;
-        })
-    };
+            var scoores = scoreval;       
+            var thedate = new Date;
+            var newscoore = {
+                player: yourname,
+                score: scoores,
+                date: thedate.toLocaleDateString(),
+            }
+            highscores.push(newscoore)
+            checkwiner()
+        
+        if (highscores.length > 5) {
+            highscores.pop()
+        }
+        addstoraga()
+
+        function checkwiner() {
+            highscores.sort((a, b) => {
+                return b.score - a.score;
+            })
+            scoreval = 0;
+            nextleveleval = 10;
+            leveleval = 1;
+            missedclicksval = 0;
+            timeval = 60;
+            time.innerHTML = "60";
+            yourname=[];
+        }
+    }, 100);
 
     function addstoraga() {
         var highscoresJSON = JSON.stringify(highscores);
         localStorage.setItem("allscores", highscoresJSON);
+        createHTML();
     }
 };
 
@@ -91,46 +111,50 @@ function createscoore(scoore, i) {
 var jamp = null
 
 function position() {
-    spiner.style.top = Math.floor(Math.random() * 550) + 20 + "px";
-    spiner.style.right = Math.floor(Math.random() * 750) + 20 + "px";
-};
+    setTimeout(() => {
+        spiner.style.top = Math.floor(Math.random() * 550) + 20 + "px";
+        spiner.style.right = Math.floor(Math.random() * 750) + 20 + "px";
+    }, run);
+}
+
 // // ----------------------------------------------------------------------------------------
 // לוח המשחק
 var score = document.getElementById("score")
-score.val = 0;
+var scoreval = 0;
 var nextlevele = document.getElementById("next levele")
-nextlevele.val = 10;
+var nextleveleval = 10;
 var levele = document.getElementById("levele")
-levele.val = 1;
+var leveleval = 1;
 var missedclicks = document.getElementById("missed clicks")
-missedclicks.val = 0;
+var missedclicksval = 0;
 
 // לוח המשחק קליקים טובים
 function clickin() {
-    if (levele.val > 5) {
+    if (leveleval > 5) {
         funcs.stop(bagin);
         levele.innerHTML = "5";
-        nextlevele.innerHTML ="10";
-    } else if (nextlevele.val != 1) {
-        timeval += 10;
-        score.val += 10 * levele.val;
-        score.innerHTML = score.val;
-        nextlevele.val--;
-        nextlevele.innerHTML = nextlevele.val;
+        nextlevele.innerHTML = "10";
+    } else if (nextleveleval != 1) {
+        scoreval += 10 * leveleval;
+        score.innerHTML = scoreval;
+        nextleveleval--;
+        nextlevele.innerHTML = nextleveleval;
     } else {
-        nextlevele.val = 10;
-        nextlevele.innerHTML = nextlevele.val;
-        levele.val++;
-        levele.innerHTML = levele.val;
+        nextleveleval = 10;
+        nextlevele.innerHTML = nextleveleval;
+        leveleval++;
+        levele.innerHTML = leveleval;
+        timeval += 10;
         dur -= 0.25;
+        run -= 50;
     }
 };
 // לוח המשחק קליקים מזויפים
 var black = document.getElementById("black");
 
 function clickout() {
-    missedclicks.val++;
-    missedclicks.innerHTML = missedclicks.val;
-    score.val -= 1 * levele.val;
-    score.innerHTML = score.val;
+    missedclicksval++;
+    missedclicks.innerHTML = missedclicksval;
+    scoreval -= 1 * leveleval;
+    score.innerHTML = scoreval;
 };
