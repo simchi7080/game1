@@ -16,14 +16,15 @@ createHTML();
 // ------------------------------------------------
 // הפעלת המשחק
 function ternon() {
-    funcs.start();
-}
+    if (confirm("are you redy to start?")) {
+        funcs.start()
+    }
+};
 var spiner = document.getElementById("spiner");
 var dur = 2;
 var run = 300;
 const funcs = {
     start: function () {
-        confirm("are you redy to start?");
         bagin = setInterval(() => {
             spiner.addEventListener("mouseover", position);
             timeval--;
@@ -48,37 +49,37 @@ const funcs = {
 //בדיקה והוספה של השחקן ללוח הניצחונות 
 function addscoore() {
     setTimeout(() => {
-        if(highscores.length<5){
+        if (highscores.length < 5) {
             yourname = prompt("Write your name here :")
-        }else if (scoreval> highscores[highscores.length - 1].score) {
+        } else if (scoreval > highscores[highscores.length - 1].score) {
             yourname = prompt("Write your name here :")
         }
-            alert(yourname + " your score is " + scoreval)
-            score.innerHTML = "0";
-            nextlevele.innerHTML = "10";
-            levele.innerHTML = "1";         
-            missedclicks.innerHTML = "0";  
+        alert(yourname + " your score is " + scoreval)
+        score.innerHTML = "0";
+        nextlevele.innerHTML = "10";
+        levele.innerHTML = "1";
+        missedclicks.innerHTML = "0";
 
-            var scoores = scoreval;       
-            var thedate = new Date;
-            var newscoore = {
-                player: yourname,
-                score: scoores,
-                date: thedate.toLocaleDateString(),
-            }
-            highscores.push(newscoore)
-            checkwiner()
-        
+        var scoores = scoreval;
+        var thedate = new Date;
+        var newscoore = {
+            player: yourname,
+            score: scoores,
+            date: thedate.toLocaleDateString(),
+        }
+        highscores.push(newscoore)
+        checkwiner()
+
         if (highscores.length > 5) {
             highscores.pop()
         }
         addstoraga()
-// לבדוק האם הציון שלו גבוה מה5
+        // לבדוק האם הציון שלו גבוה מה5
         function checkwiner() {
             highscores.sort((a, b) => {
                 return b.score - a.score;
             })
- // לאפס את המשחק
+            // לאפס את המשחק
             spiner.removeEventListener("click", clickin);
             black.removeEventListener("click", clickout);
             spiner.removeEventListener("mouseover", position);
@@ -88,10 +89,10 @@ function addscoore() {
             missedclicksval = 0;
             timeval = 60;
             time.innerHTML = "60";
-            yourname=[];
+            yourname = [];
         }
     }, 100);
-// להכניס לגייסון
+    // להכניס לגייסון
     function addstoraga() {
         var highscoresJSON = JSON.stringify(highscores);
         localStorage.setItem("allscores", highscoresJSON);
